@@ -6,3 +6,5 @@ scripts/screenshots/
 scripts/fit-screenshots/
 scripts/autoflip-screenshots/
 *.log
+
+.vercel

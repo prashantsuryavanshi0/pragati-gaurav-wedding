@@ -375,7 +375,7 @@ export default function FlipBook({ pages }) {
           <button className={styles.cornerHint} onClick={() => { onInteraction(); next() }} aria-label="Turn to next page" />
         )}
 
-        {/* ── Back to cover ── */}
+        {/* ── Back to cover (desktop) ── */}
         {cur === pages.length - 1 && !isFlipping && !isRiffling && (
           <button className={styles.backToCoverBtn} onClick={startRiffle} aria-label="Back to cover">
             <RotateCcw size={13} />
@@ -383,31 +383,29 @@ export default function FlipBook({ pages }) {
           </button>
         )}
 
-        {/* ── Auto-flip play/pause ── */}
+        {/* ── Desktop: floating play/pause + prev/next arrows ── */}
         {AUTO_FLIP && (
           <button
-            className={styles.autoFlipBtn}
+            className={`${styles.autoFlipBtn} ${styles.desktopOnly}`}
             onClick={togglePause}
             aria-label={manualPaused ? 'Resume auto flip' : 'Pause auto flip'}
           >
             {manualPaused ? <Play size={16} /> : <Pause size={16} />}
           </button>
         )}
-
-        {/* ── Prev / Next arrows ── */}
         {cur > 0 && !isFlipping && !isRiffling && (
-          <button className={`${styles.arrow} ${styles.arrowLeft}`} onClick={() => { onInteraction(); prev() }} aria-label="Previous page">
+          <button className={`${styles.arrow} ${styles.arrowLeft} ${styles.desktopOnly}`} onClick={() => { onInteraction(); prev() }} aria-label="Previous page">
             <ChevronLeft size={22} />
           </button>
         )}
         {cur < pages.length - 1 && !isFlipping && !isRiffling && (
-          <button className={`${styles.arrow} ${styles.arrowRight}`} onClick={() => { onInteraction(); next() }} aria-label="Next page">
+          <button className={`${styles.arrow} ${styles.arrowRight} ${styles.desktopOnly}`} onClick={() => { onInteraction(); next() }} aria-label="Next page">
             <ChevronRight size={22} />
           </button>
         )}
 
-        {/* ── Page dots ── */}
-        <nav className={styles.dots} aria-label="Page navigation">
+        {/* ── Desktop: page dots ── */}
+        <nav className={`${styles.dots} ${styles.desktopOnly}`} aria-label="Page navigation">
           {pages.map((_, i) => (
             <button
               key={i}
@@ -418,6 +416,49 @@ export default function FlipBook({ pages }) {
             />
           ))}
         </nav>
+
+        {/* ── Mobile bottom bar: [ < ]  dots  [ play/pause ]  [ > ] ── */}
+        <div className={styles.mobileBar}>
+          <button
+            className={styles.mobileArrow}
+            onClick={() => { onInteraction(); prev() }}
+            disabled={cur === 0 || isFlipping || isRiffling}
+            aria-label="Previous page"
+          >
+            <ChevronLeft size={20} />
+          </button>
+
+          <nav className={styles.mobileDots} aria-label="Page navigation">
+            {pages.map((_, i) => (
+              <button
+                key={i}
+                className={`${styles.dot} ${i === cur ? styles.dotActive : ''}`}
+                onClick={() => { onInteraction(); goTo(i, FAST_FLIP_DURATION) }}
+                aria-label={`Go to ${PAGE_IDS[i] ?? `page ${i + 1}`}`}
+                aria-current={i === cur ? 'page' : undefined}
+              />
+            ))}
+          </nav>
+
+          {AUTO_FLIP && (
+            <button
+              className={styles.mobilePlayPause}
+              onClick={togglePause}
+              aria-label={manualPaused ? 'Resume auto flip' : 'Pause auto flip'}
+            >
+              {manualPaused ? <Play size={16} /> : <Pause size={16} />}
+            </button>
+          )}
+
+          <button
+            className={styles.mobileArrow}
+            onClick={() => { onInteraction(); next() }}
+            disabled={cur === pages.length - 1 || isFlipping || isRiffling}
+            aria-label="Next page"
+          >
+            <ChevronRight size={20} />
+          </button>
+        </div>
 
         {/* ── Dwell progress bar ── */}
         {AUTO_FLIP && !isPaused && !isFlipping && !isRiffling && (

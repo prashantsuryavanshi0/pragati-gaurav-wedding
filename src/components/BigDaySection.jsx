@@ -56,7 +56,7 @@ export default function BigDaySection() {
       <div className={styles.videoBg} aria-hidden="true">
         <video
           className={styles.video}
-          src="/assets/big-day.mp4"
+          src={`${import.meta.env.BASE_URL}assets/big-day.mp4`}
           autoPlay
           muted
           loop

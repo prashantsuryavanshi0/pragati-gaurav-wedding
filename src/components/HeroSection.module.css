@@ -239,3 +239,8 @@
   .content { padding: calc(var(--nav-h, 52px) + 12px) 16px clamp(72px, 11vh, 100px); }
   .ctaBtn  { padding: 11px 24px; }
 }
+
+/* ── Mobile: add bottom padding for the mobile bar ── */
+@media (max-width: 767px) {
+  .content { padding-bottom: var(--mobile-bar-h, 64px); }
+}

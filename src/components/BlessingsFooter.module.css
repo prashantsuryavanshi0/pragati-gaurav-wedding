@@ -76,3 +76,8 @@
   text-transform: uppercase;
   color: rgba(212, 175, 106, 0.85);
 }
+
+/* ── Mobile: add bottom padding for the mobile bar ── */
+@media (max-width: 767px) {
+  .footer { padding-bottom: var(--mobile-bar-h, 64px); }
+}

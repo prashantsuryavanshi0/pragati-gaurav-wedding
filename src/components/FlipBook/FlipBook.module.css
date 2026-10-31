@@ -2,7 +2,15 @@
 .book {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
+  /* 100dvh with fallbacks for older browsers */
+  height: 100vh;
+  height: 100svh;
+  height: 100dvh;
   overflow: hidden;
+  /* Safe-area padding so nothing hides behind notch/home-bar */
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  box-sizing: border-box;
 }
 
 /* ── Page slot ───────────────────────────────────────────────────────────────*/
@@ -272,21 +280,94 @@
 .dot:hover { background: rgba(201,168,76,0.6); }
 .dotActive { background: #C9A84C; border-color: #C9A84C; transform: scale(1.3); }
 
+/* ── desktopOnly helper ──────────────────────────────────────────────────────
+   Hides desktop arrows/dots/play-pause on phones; the mobile bottom bar
+   takes over.                                                                */
+.desktopOnly { display: flex; }
+@media (max-width: 767px) {
+  .desktopOnly { display: none !important; }
+}
+
+/* ── Mobile bottom bar ───────────────────────────────────────────────────────
+   [ < ]  dots  [ play ]  [ > ]
+   Sits above safe-area-inset-bottom; page slots get matching padding-bottom. */
+.mobileBar {
+  display: none;
+}
+@media (max-width: 767px) {
+  .mobileBar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    left: 0; right: 0;
+    bottom: 0;
+    z-index: 30;
+    height: calc(52px + env(safe-area-inset-bottom, 0px));
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    padding-left: 8px;
+    padding-right: 8px;
+    background: rgba(22,5,5,0.88);
+    border-top: 1px solid rgba(201,168,76,0.18);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+
+  /* Page slots must not be covered by the bar */
+  .pageSlot {
+    padding-bottom: calc(52px + env(safe-area-inset-bottom, 0px));
+  }
+}
+
+.mobileArrow {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid rgba(201,168,76,0.3);
+  color: #C9A84C;
+  cursor: pointer;
+  border-radius: 0;
+  flex-shrink: 0;
+  transition: background 0.18s, border-color 0.18s;
+}
+.mobileArrow:disabled { opacity: 0.3; cursor: default; }
+.mobileArrow:not(:disabled):hover { background: rgba(201,168,76,0.12); border-color: rgba(201,168,76,0.6); }
+
+.mobileDots {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex: 1;
+  justify-content: center;
+}
+
+.mobilePlayPause {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid rgba(201,168,76,0.3);
+  color: #C9A84C;
+  cursor: pointer;
+  border-radius: 0;
+  flex-shrink: 0;
+  transition: background 0.18s, border-color 0.18s;
+}
+.mobilePlayPause:hover { background: rgba(201,168,76,0.12); border-color: rgba(201,168,76,0.6); }
+
 /* ── Responsive ──────────────────────────────────────────────────────────────*/
 @media (hover: hover) and (pointer: fine) {
   .cornerHint { display: block; }
 }
 
 @media (max-width: 640px) {
-  .arrow { width: 38px; height: 38px; }
-  .arrowLeft  { left: 6px; }
-  .arrowRight { right: 6px; }
   .dots { bottom: 10px; gap: 8px; }
   .dot  { width: 7px; height: 7px; }
   .cornerHint { display: none; }
-  .backToCoverBtn { right: 8px; bottom: 36px; }
-  .autoFlipBtn { right: 106px; bottom: 36px; }
-}
-@media (max-width: 390px) {
-  .arrow { width: 34px; height: 34px; }
+  .backToCoverBtn { right: 8px; bottom: calc(60px + env(safe-area-inset-bottom, 0px)); }
 }

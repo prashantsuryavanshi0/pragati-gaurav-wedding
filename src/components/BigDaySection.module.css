@@ -318,3 +318,8 @@
   .mainDate { font-size: clamp(16px, 2.5vh, 28px); }
   .quote    { font-size: clamp(12px, 1.5vh, 15px); line-height: 1.6; }
 }
+
+/* ── Mobile: add bottom padding for the mobile bar ── */
+@media (max-width: 767px) {
+  .content { padding-bottom: var(--mobile-bar-h, 64px); }
+}

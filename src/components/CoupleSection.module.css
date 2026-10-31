@@ -221,3 +221,8 @@
 @media (max-width: 360px) {
   .frameInner { width: 80px; }
 }
+
+/* ── Mobile: add bottom padding for the mobile bar ── */
+@media (max-width: 767px) {
+  .inner { padding-bottom: var(--mobile-bar-h, 64px); }
+}

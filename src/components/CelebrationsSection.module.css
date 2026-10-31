@@ -241,3 +241,8 @@
   color: rgba(240,229,200,0.52);
   line-height: 1.6;
 }
+
+/* ── Mobile: add bottom padding for the mobile bar ── */
+@media (max-width: 767px) {
+  .section { padding-bottom: var(--mobile-bar-h, 64px); }
+}

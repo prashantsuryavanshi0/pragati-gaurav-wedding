@@ -36,7 +36,7 @@ export default function HeroSection() {
       <div className={styles.videoBg} aria-hidden="true">
         <video
           className={styles.video}
-          src="/assets/hero-bg.mp4"
+          src={`${import.meta.env.BASE_URL}assets/hero-bg.mp4`}
           autoPlay
           muted
           loop

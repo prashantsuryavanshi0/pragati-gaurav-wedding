@@ -47,6 +47,16 @@ body.flipbook-active {
   overflow: hidden;
 }
 
+/* ── Mobile: no header bar, use safe-area for top, bottom bar for nav ───── */
+@media (max-width: 767px) {
+  :root {
+    --nav-h: 0px;
+    --header-height: 0px;
+    /* --mobile-bar-h is the bottom control bar (52px + safe-area) */
+    --mobile-bar-h: calc(52px + env(safe-area-inset-bottom, 0px));
+  }
+}
+
 /* Reduce nav height on short screens to reclaim vertical space */
 @media (max-height: 760px) {
   :root {

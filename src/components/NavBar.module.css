@@ -1,3 +1,4 @@
+/* ── Desktop/tablet header bar ─────────────────────────────────────────────*/
 .nav {
   position: fixed;
   top: 0;
@@ -8,12 +9,10 @@
   justify-content: center;
   align-items: center;
   padding: 14px clamp(16px,3vw,40px);
-  /* Always solid — the FlipBook pages are fixed beneath this */
   background: rgba(22,5,5,0.96);
   box-shadow: 0 1px 0 rgba(201,168,76,0.2);
 }
 
-/* Desktop */
 .links {
   display: flex;
   gap: clamp(14px,2.5vw,36px);
@@ -35,54 +34,93 @@
   border-color: #C9A84C;
 }
 
-/* Mobile burger */
-.burger {
-  display: none;
-  flex-direction: column;
-  justify-content: center;
-  gap: 5px;
-  background: transparent;
-  border: none;
-  padding: 4px;
-  cursor: pointer;
+/* ── Mobile: hide the header bar entirely ───────────────────────────────────*/
+@media (max-width: 767px) {
+  .nav { display: none; }
 }
-.bar {
-  display: block;
-  width: 24px;
-  height: 1.5px;
-  background: #C9A84C;
-  transition: transform 0.3s, opacity 0.3s;
-}
-.barOpen1 { transform: translateY(6.5px) rotate(45deg); }
-.barOpen2 { opacity: 0; }
-.barOpen3 { transform: translateY(-6.5px) rotate(-45deg); }
 
-/* Mobile drawer */
-.drawer {
-  position: absolute;
-  top: 100%;
-  left: 0; right: 0;
-  background: rgba(22,5,5,0.98);
-  border-top: 1px solid rgba(201,168,76,0.2);
+/* ── Mobile floating menu button ────────────────────────────────────────────
+   40×40 round button, top-right, above safe-area-inset-top.                 */
+.floatBtn {
+  display: none;
+  position: fixed;
+  top: calc(12px + env(safe-area-inset-top, 0px));
+  right: 14px;
+  z-index: 200;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(40,8,8,0.82);
+  border: 1.5px solid rgba(201,168,76,0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+.floatBtn:hover { background: rgba(40,8,8,0.96); border-color: rgba(201,168,76,0.8); }
+
+@media (max-width: 767px) {
+  .floatBtn { display: flex; }
+}
+
+/* ── Mobile full-screen overlay ─────────────────────────────────────────────*/
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 190;
+  background: rgba(22,5,5,0.97);
   display: flex;
   flex-direction: column;
-  padding: 16px 24px 20px;
-  gap: 14px;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+  animation: overlayFadeIn 0.22s ease;
 }
-.drawerLink {
+@keyframes overlayFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.overlayClose {
+  position: absolute;
+  top: calc(14px + env(safe-area-inset-top, 0px));
+  right: 14px;
+  background: transparent;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.overlayLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  align-items: center;
+}
+
+.overlayLink {
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 15px;
-  letter-spacing: 0.22em;
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: 0.25em;
   text-transform: uppercase;
   color: rgba(240,229,200,0.72);
   text-decoration: none;
   padding: 6px 0;
-  border-bottom: 1px solid rgba(201,168,76,0.12);
-  transition: color 0.25s;
+  border-bottom: 1px solid transparent;
+  transition: color 0.25s, border-color 0.25s;
 }
-.drawerLink.active, .drawerLink:hover { color: #E8C96B; }
+.overlayLink.active,
+.overlayLink:hover {
+  color: #E8C96B;
+  border-color: rgba(201,168,76,0.5);
+}
 
-@media (max-width: 640px) {
-  .links  { display: none; }
-  .burger { display: flex; }
+/* Hide floating button and overlay on desktop/tablet */
+@media (min-width: 768px) {
+  .floatBtn  { display: none !important; }
+  .overlay   { display: none !important; }
 }

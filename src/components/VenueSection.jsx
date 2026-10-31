@@ -17,7 +17,7 @@ export default function VenueSection() {
       <div className={styles.videoBg} aria-hidden="true">
         <video
           className={styles.video}
-          src="/assets/venue-bg.mp4"
+          src={`${import.meta.env.BASE_URL}assets/venue-bg.mp4`}
           autoPlay
           muted
           loop

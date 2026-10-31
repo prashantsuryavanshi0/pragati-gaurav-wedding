@@ -109,7 +109,7 @@ export default function CelebrationsSection() {
 
   return (
     <section id="celebrations" className={styles.section}>
-      <SectionVideoBg src="/assets/celebrations-bg.mp4" overlayOpacity={0.52} />
+      <SectionVideoBg src={`${import.meta.env.BASE_URL}assets/celebrations-bg.mp4`} overlayOpacity={0.52} />
       <div className={styles.bg} aria-hidden="true" />
 
       <div className={styles.inner}>
