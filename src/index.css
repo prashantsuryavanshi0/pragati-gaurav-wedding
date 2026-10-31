@@ -42,6 +42,11 @@ body {
   overflow-x: clip;
 }
 
+/* FlipBook mode: lock body scroll (applied by FlipBook.jsx on mount) */
+body.flipbook-active {
+  overflow: hidden;
+}
+
 /* Reduce nav height on short screens to reclaim vertical space */
 @media (max-height: 760px) {
   :root {

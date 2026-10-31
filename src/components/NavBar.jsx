@@ -1,28 +1,29 @@
 import { useState, useEffect, useRef } from 'react'
+import { useFlipBook, PAGE_IDS } from './FlipBook/FlipBook'
 import styles from './NavBar.module.css'
 
 const LINKS = [
-  { href: '#hero',          label: 'Welcome'      },
-  { href: '#couple',        label: 'The Couple'   },
-  { href: '#celebrations',  label: 'Celebrations' },
-  { href: '#bigday',        label: 'Big Day'      },
-  { href: '#venue',         label: 'Venue'        },
+  { href: '#hero',          label: 'Welcome',      pageId: 'hero'          },
+  { href: '#couple',        label: 'The Couple',   pageId: 'couple'        },
+  { href: '#celebrations',  label: 'Celebrations', pageId: 'celebrations'  },
+  { href: '#bigday',        label: 'Big Day',      pageId: 'bigday'        },
+  { href: '#venue',         label: 'Venue',        pageId: 'venue'         },
 ]
 
 export default function NavBar() {
-  const [solid, setSolid]     = useState(false)
-  const [active, setActive]   = useState('hero')
-  const [menuOpen, setMenu]   = useState(false)
+  const [menuOpen, setMenu] = useState(false)
   const navRef = useRef(null)
+
+  const { currentPage, goTo } = useFlipBook()
 
   // Keep --nav-h in sync with the real rendered navbar height
   useEffect(() => {
     const nav = navRef.current
     if (!nav) return
     const update = () => {
-      const h = nav.getBoundingClientRect().height
-      document.documentElement.style.setProperty('--nav-h', `${Math.ceil(h)}px`)
-      document.documentElement.style.setProperty('--header-height', `${Math.ceil(h)}px`)
+      const h = Math.ceil(nav.getBoundingClientRect().height)
+      document.documentElement.style.setProperty('--nav-h', `${h}px`)
+      document.documentElement.style.setProperty('--header-height', `${h}px`)
     }
     update()
     const ro = new ResizeObserver(update)
@@ -30,42 +31,21 @@ export default function NavBar() {
     return () => ro.disconnect()
   }, [])
 
-  useEffect(() => {
-    function onScroll() {
-      setSolid(window.scrollY > 60)
-
-      // Determine active section by scroll position
-      const ids = LINKS.map(l => l.href.slice(1))
-      for (let i = ids.length - 1; i >= 0; i--) {
-        const el = document.getElementById(ids[i])
-        if (el && el.getBoundingClientRect().top <= 120) {
-          setActive(ids[i])
-          return
-        }
-      }
-      setActive('hero')
-    }
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
-
-  function handleClick(e, href) {
+  function handleClick(e, pageId) {
     e.preventDefault()
     setMenu(false)
-    const el = document.querySelector(href)
-    if (!el) return
-    const navH = parseFloat(
-      getComputedStyle(document.documentElement).getPropertyValue('--nav-h') || '52'
-    )
-    const top = el.getBoundingClientRect().top + window.scrollY - navH
-    window.scrollTo({ top, behavior: 'smooth' })
+    const idx = PAGE_IDS.indexOf(pageId)
+    if (idx >= 0) goTo(idx, 0.3)
   }
+
+  const activeId = PAGE_IDS[currentPage] ?? 'hero'
 
   return (
     <nav
       ref={navRef}
-      className={`${styles.nav} ${solid ? styles.solid : ''}`}
+      className={styles.nav}
       aria-label="Site navigation"
+      style={{ zIndex: 100 }}
     >
       {/* Desktop links */}
       <div className={styles.links}>
@@ -73,8 +53,8 @@ export default function NavBar() {
           <a
             key={l.href}
             href={l.href}
-            className={`${styles.link} ${active === l.href.slice(1) ? styles.active : ''}`}
-            onClick={e => handleClick(e, l.href)}
+            className={`${styles.link} ${activeId === l.pageId ? styles.active : ''}`}
+            onClick={e => handleClick(e, l.pageId)}
           >
             {l.label}
           </a>
@@ -100,8 +80,8 @@ export default function NavBar() {
             <a
               key={l.href}
               href={l.href}
-              className={`${styles.drawerLink} ${active === l.href.slice(1) ? styles.active : ''}`}
-              onClick={e => handleClick(e, l.href)}
+              className={`${styles.drawerLink} ${activeId === l.pageId ? styles.active : ''}`}
+              onClick={e => handleClick(e, l.pageId)}
             >
               {l.label}
             </a>

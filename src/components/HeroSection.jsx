@@ -3,6 +3,7 @@ import { motion, useReducedMotion } from 'framer-motion'
 import GoldParticles from './GoldParticles'
 import RosePetals from './RosePetals'
 import Envelope from './Envelope'
+import { useFlipBook } from './FlipBook/FlipBook'
 import styles from './HeroSection.module.css'
 
 const stagger = {
@@ -26,6 +27,7 @@ export default function HeroSection() {
   const [envelopeOpened, setEnvelopeOpened] = useState(false)
   const reduced = useReducedMotion()
   const v = reduced ? { hidden: {}, show: {} } : null
+  const { goTo } = useFlipBook()
 
   return (
     <section id="hero" className={styles.hero} aria-label="Wedding invitation hero">
@@ -34,7 +36,7 @@ export default function HeroSection() {
       <div className={styles.videoBg} aria-hidden="true">
         <video
           className={styles.video}
-          src="/assets/gemini_generated_video_14f06a2c_gwr_video_mvp.mp4"
+          src="/assets/hero-bg.mp4"
           autoPlay
           muted
           loop
@@ -120,31 +122,19 @@ export default function HeroSection() {
             <Envelope onOpen={() => setEnvelopeOpened(true)} compact />
           </motion.div>
 
-          {/* CTA */}
+          {/* CTA — flips to page 1 (Couple) like opening an invitation card */}
           <motion.div variants={v ?? fadeUp}>
-            <a
-              href="#couple"
+            <button
               className={styles.ctaBtn}
-              aria-label="Explore the full wedding invitation"
+              aria-label="Open wedding invitation"
+              onClick={() => goTo(1)}
             >
               {envelopeOpened ? 'Explore Celebrations' : 'Open Invitation'}
-              <span className={styles.ctaArrow} aria-hidden="true">↓</span>
-            </a>
+              <span className={styles.ctaArrow} aria-hidden="true">→</span>
+            </button>
           </motion.div>
         </motion.div>
       </div>
-
-      {/* Scroll indicator */}
-      <motion.div
-        className={styles.scrollIndicator}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2.8, duration: 1 }}
-        aria-hidden="true"
-      >
-        <span className={styles.scrollLabel}>Scroll to explore</span>
-        <span className={styles.scrollChevron} />
-      </motion.div>
     </section>
   )
 }

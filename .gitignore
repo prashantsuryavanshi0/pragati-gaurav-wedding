@@ -1,2 +1,8 @@
 node_modules/
 dist/
+.vercel/
+.env*
+scripts/screenshots/
+scripts/fit-screenshots/
+scripts/autoflip-screenshots/
+*.log

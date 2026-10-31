@@ -55,7 +55,7 @@ export default function CoupleSection() {
 
   return (
     <section id="couple" className={styles.section}>
-      <SectionVideoBg src="/assets/couple-wedding-landscape.mp4.mp4" overlayOpacity={0.48} />
+      <SectionVideoBg src="/assets/couple-wedding-landscape.mp4" overlayOpacity={0.48} />
       <div className={styles.bg} aria-hidden="true" />
 
       <div className={styles.inner}>

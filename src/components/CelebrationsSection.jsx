@@ -109,7 +109,7 @@ export default function CelebrationsSection() {
 
   return (
     <section id="celebrations" className={styles.section}>
-      <SectionVideoBg src="/assets/celebrations-bg.mp4.mp4" overlayOpacity={0.52} />
+      <SectionVideoBg src="/assets/celebrations-bg.mp4" overlayOpacity={0.52} />
       <div className={styles.bg} aria-hidden="true" />
 
       <div className={styles.inner}>
@@ -127,7 +127,7 @@ export default function CelebrationsSection() {
 
         <p className={styles.swipeHint} aria-hidden="true">Swipe to explore →</p>
 
-        <div className={styles.grid}>
+        <div className={styles.grid} data-no-swipe="true">
           {EVENTS.map((ev, i) => (
             <EventCard key={ev.key} event={ev} index={i} />
           ))}

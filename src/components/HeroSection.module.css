@@ -200,7 +200,7 @@
   outline: none;
 }
 .ctaArrow { font-size: 15px; transition: transform 0.3s; }
-.ctaBtn:hover .ctaArrow { transform: translateY(3px); }
+.ctaBtn:hover .ctaArrow { transform: translateX(4px); }
 
 /* ── Scroll indicator ── */
 .scrollIndicator {

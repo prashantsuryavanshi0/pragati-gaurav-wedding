@@ -1,8 +1,16 @@
 .footer {
+  /* Full-screen back page — centered content */
+  min-height: 100svh;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: safe center;
   background:
     radial-gradient(ellipse 80% 60% at 50% 100%, rgba(139,32,32,0.18) 0%, transparent 70%),
     linear-gradient(180deg, #0A0202 0%, #160606 100%);
-  padding: clamp(36px, 6vh, 72px) clamp(20px, 6vw, 80px);
+  padding: calc(var(--nav-h, 52px) + clamp(20px, 4vh, 40px))
+           clamp(20px, 6vw, 80px)
+           clamp(20px, 4vh, 40px);
   text-align: center;
 }
 

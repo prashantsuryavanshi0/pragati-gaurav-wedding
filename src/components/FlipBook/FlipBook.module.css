@@ -1,0 +1,292 @@
+/* ── Book container ─────────────────────────────────────────────────────────*/
+.book {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  overflow: hidden;
+}
+
+/* ── Page slot ───────────────────────────────────────────────────────────────*/
+.pageSlot {
+  position: absolute;
+  inset: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  will-change: transform;
+}
+
+/* ── Perspective wrapper ────────────────────────────────────────────────────
+   perspective value passed via inline style (from flipConfig.PERSPECTIVE).    */
+.perspectiveWrap {
+  position: absolute;
+  inset: 0;
+  perspective-origin: left center;
+}
+
+/* ── Flipper ─────────────────────────────────────────────────────────────────*/
+.flipper {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transform-origin: left center;
+  will-change: transform;
+}
+
+/* ── Page faces ──────────────────────────────────────────────────────────────*/
+.pageFront,
+.pageBack {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.pageBack {
+  transform: rotateY(180deg);
+}
+
+.pageBackInner {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 80% at 20% 30%, rgba(245,230,184,0.35) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 80% 70%, rgba(200,155,80,0.2)  0%, transparent 55%),
+    linear-gradient(145deg, #F5E8C8 0%, #EDD8A0 20%, #D8BF7C 45%, #C4A054 70%, #B08840 100%);
+}
+.pageBackInner::after {
+  content: '';
+  position: absolute;
+  inset: 18px;
+  border: 1px solid rgba(180,140,60,0.4);
+}
+
+/* ── Light sweep — paper curl illusion ───────────────────────────────────────
+   backgroundImage driven by useMotionTemplate.                                */
+.lightSweep {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* ── Under-page shadow ───────────────────────────────────────────────────────
+   opacity and backgroundImage driven by Framer Motion values.                 */
+.underShadow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 50;
+}
+
+/* ── Gold spine ──────────────────────────────────────────────────────────────*/
+.spine {
+  position: absolute;
+  left: 0;
+  top: var(--nav-h, 52px);
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(to right, rgba(201,168,76,0.7) 0%, rgba(201,168,76,0.25) 60%, transparent 100%);
+  z-index: 20;
+  pointer-events: none;
+}
+
+/* ── Riffle overlay ──────────────────────────────────────────────────────────
+   All cards sit above the page slots (z-index 10-14 on .rifflePersp).         */
+.riffleWrap {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.rifflePersp {
+  position: absolute;
+  inset: 0;
+  perspective: 2200px;
+  perspective-origin: left center;
+}
+/* Each antique-paper card; backface-visibility:hidden so it vanishes past 90° */
+.riffleCard {
+  position: absolute;
+  inset: 0;
+  transform-origin: left center;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  background:
+    radial-gradient(ellipse 60% 70% at 25% 30%, rgba(245,230,184,0.4) 0%, transparent 55%),
+    linear-gradient(145deg, #F5E8C8 0%, #EDD8A0 22%, #D8BF7C 50%, #C4A054 75%, #B08840 100%);
+}
+
+/* ── Corner hint ─────────────────────────────────────────────────────────────
+   Desktop-only folded-paper corner that invites the user to turn the page.    */
+.cornerHint {
+  display: none;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 72px;
+  height: 72px;
+  z-index: 25;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+.cornerHint::before {
+  content: '';
+  position: absolute;
+  bottom: 0; right: 0;
+  width: 0; height: 0;
+  border-style: solid;
+  border-width: 0 0 52px 52px;
+  border-color: transparent transparent rgba(245,230,184,0.72) transparent;
+  opacity: 0;
+  transform: scale(0.65);
+  transform-origin: bottom right;
+  transition: opacity 0.32s ease, transform 0.32s ease;
+  filter: drop-shadow(-2px -2px 4px rgba(0,0,0,0.35));
+}
+.cornerHint::after {
+  content: '';
+  position: absolute;
+  bottom: 3px; right: 3px;
+  width: 0; height: 0;
+  border-style: solid;
+  border-width: 0 0 52px 52px;
+  border-color: transparent transparent rgba(80,50,10,0.22) transparent;
+  opacity: 0;
+  transform: scale(0.65);
+  transform-origin: bottom right;
+  transition: opacity 0.32s ease, transform 0.32s ease;
+}
+.cornerHint:hover::before,
+.cornerHint:hover::after { opacity: 1; transform: scale(1); }
+
+/* ── Back-to-cover button ────────────────────────────────────────────────────*/
+.backToCoverBtn {
+  position: absolute;
+  bottom: 40px;
+  right: 14px;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  background: rgba(40,8,8,0.72);
+  border: 1px solid rgba(201,168,76,0.38);
+  color: rgba(201,168,76,0.88);
+  font-family: var(--ff-display);
+  font-size: 11px;
+  letter-spacing: 0.07em;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+  white-space: nowrap;
+}
+.backToCoverBtn:hover {
+  background: rgba(40,8,8,0.96);
+  border-color: rgba(201,168,76,0.72);
+}
+
+/* ── Auto-flip play/pause button ─────────────────────────────────────────────*/
+.autoFlipBtn {
+  position: absolute;
+  bottom: 40px;
+  right: 130px;
+  z-index: 30;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(40,8,8,0.72);
+  border: 1px solid rgba(201,168,76,0.38);
+  color: rgba(201,168,76,0.88);
+  cursor: pointer;
+  border-radius: 0;
+  transition: background 0.2s, border-color 0.2s;
+}
+.autoFlipBtn:hover {
+  background: rgba(40,8,8,0.96);
+  border-color: rgba(201,168,76,0.72);
+}
+
+/* ── Dwell progress bar ──────────────────────────────────────────────────────
+   scaleX 0→1 driven by Framer Motion progressBar MotionValue.                */
+.progressBar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, #C9A84C, #E8C96B);
+  transform-origin: left;
+  z-index: 31;
+  pointer-events: none;
+}
+
+/* ── Navigation arrows ───────────────────────────────────────────────────────*/
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 30;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(40,8,8,0.72);
+  border: 1.5px solid rgba(201,168,76,0.42);
+  color: #C9A84C;
+  cursor: pointer;
+  border-radius: 0;
+  transition: background 0.2s, border-color 0.2s, transform 0.2s;
+}
+.arrow:hover, .arrow:focus-visible {
+  background: rgba(40,8,8,0.96);
+  border-color: rgba(201,168,76,0.75);
+  outline: none;
+}
+.arrowLeft  { left: 10px; transform: translateY(-50%); }
+.arrowLeft:hover  { transform: translateY(-50%) translateX(-2px); }
+.arrowRight { right: 10px; transform: translateY(-50%); }
+.arrowRight:hover { transform: translateY(-50%) translateX(2px); }
+
+/* ── Page dots ───────────────────────────────────────────────────────────────*/
+.dots {
+  position: absolute;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 30;
+  padding: 4px 8px;
+}
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(201,168,76,0.35);
+  border: 1px solid rgba(201,168,76,0.5);
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.25s, transform 0.25s;
+}
+.dot:hover { background: rgba(201,168,76,0.6); }
+.dotActive { background: #C9A84C; border-color: #C9A84C; transform: scale(1.3); }
+
+/* ── Responsive ──────────────────────────────────────────────────────────────*/
+@media (hover: hover) and (pointer: fine) {
+  .cornerHint { display: block; }
+}
+
+@media (max-width: 640px) {
+  .arrow { width: 38px; height: 38px; }
+  .arrowLeft  { left: 6px; }
+  .arrowRight { right: 6px; }
+  .dots { bottom: 10px; gap: 8px; }
+  .dot  { width: 7px; height: 7px; }
+  .cornerHint { display: none; }
+  .backToCoverBtn { right: 8px; bottom: 36px; }
+  .autoFlipBtn { right: 106px; bottom: 36px; }
+}
+@media (max-width: 390px) {
+  .arrow { width: 34px; height: 34px; }
+}
