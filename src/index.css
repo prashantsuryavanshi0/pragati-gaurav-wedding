@@ -11,6 +11,13 @@
   --text-dark:    #1A0808;
   --overlay:      rgba(26, 6, 6, 0.72);
 
+  /* ── Readability text tokens ── */
+  --text-ivory:       #FFF6E5;
+  --text-gold:        #F2CF7E;
+  --text-gold-strong: #FFD98A;
+  --text-script:      #F5D28A;
+  --text-on-gold:     #3A0A12;
+
   --ff-display: 'Cormorant Garamond', Georgia, serif;
   --ff-script:  'Great Vibes', cursive;
   --ff-body:    'EB Garamond', Georgia, serif;

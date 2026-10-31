@@ -32,20 +32,23 @@
 .header { text-align: center; margin-bottom: clamp(16px, 3vh, 28px); }
 .eyebrow {
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: clamp(10px,1.2vw,13px);
-  letter-spacing: 0.32em;
+  font-size: clamp(11px, 1.4vw, 14px);
+  font-weight: 600;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: #C9A84C;
+  color: var(--text-gold-strong);
   margin-bottom: 10px;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.55), 0 0 12px rgba(30,0,8,0.45);
 }
 .title {
   font-family: 'Cormorant Garamond', Georgia, serif;
   font-size: clamp(26px,3.8vw,46px);
   font-weight: 300;
-  color: #FAF3E0;
+  color: #FFF6E5;
   line-height: 1.15;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.55), 0 0 12px rgba(30,0,8,0.45);
 }
-.title em { font-style: italic; color: #E8C96B; }
+.title em { font-style: italic; color: var(--text-gold); }
 .rule {
   display: flex;
   align-items: center;
@@ -73,7 +76,7 @@
 .card {
   position: relative;
   border: 1px solid rgba(201,168,76,0.28);
-  background: linear-gradient(160deg, rgba(61,12,12,0.9) 0%, rgba(20,5,5,0.96) 100%);
+  background: linear-gradient(160deg, rgba(61,12,12,0.94) 0%, rgba(20,5,5,0.97) 100%);
   overflow: hidden;
   transition: border-color 0.35s, box-shadow 0.35s;
   display: flex;
@@ -133,20 +136,22 @@
 .badge {
   position: absolute;
   top: 12px; right: 12px;
-  background: linear-gradient(135deg, rgba(61,12,12,0.9) 0%, rgba(26,5,5,0.9) 100%);
+  background: linear-gradient(135deg, rgba(61,12,12,0.94) 0%, rgba(26,5,5,0.94) 100%);
   border: 1px solid rgba(201,168,76,0.4);
-  color: #C9A84C;
+  color: var(--text-gold-strong);
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 9px;
-  font-weight: 600;
-  letter-spacing: 0.22em;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   padding: 4px 10px;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.4);
 }
 .badgeConfirmed {
   background: linear-gradient(135deg, #C9A84C 0%, #A07830 100%);
-  color: #3D0C0C;
+  color: var(--text-on-gold);
   border-color: transparent;
+  text-shadow: none;
 }
 
 /* ── Card body ── */
@@ -154,10 +159,11 @@
 .eventName {
   font-family: 'Great Vibes', cursive;
   font-size: clamp(20px,2.6vw,27px);
-  color: #E8C96B;
+  color: var(--text-script);
   line-height: 1.2;
   margin-bottom: 12px;
   font-weight: 400;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.6), 0 0 18px rgba(201,168,76,0.4);
 }
 .details {
   list-style: none;
@@ -171,16 +177,18 @@
   align-items: center;
   gap: 8px;
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: clamp(11px,1.3vw,13px);
-  color: rgba(240,229,200,0.78);
+  font-size: clamp(13px, 1.5vw, 15px);
+  font-weight: 500;
+  color: var(--text-ivory);
 }
 .dIcon { font-size: 13px; flex-shrink: 0; }
 .desc {
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: clamp(12px,1.3vw,14px);
+  font-size: clamp(13px, 1.4vw, 14px);
+  font-weight: 500;
   font-style: italic;
-  color: rgba(240,229,200,0.52);
-  line-height: 1.6;
+  color: var(--text-ivory);
+  line-height: 1.55;
 }
 
 /* ── Responsive grid — desktop 4 col, tablet 2×2 ── */

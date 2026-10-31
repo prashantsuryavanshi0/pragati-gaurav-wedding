@@ -20,18 +20,18 @@
 .link {
   font-family: 'Cormorant Garamond', Georgia, serif;
   font-size: clamp(10px,1.2vw,13px);
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: rgba(240,229,200,0.72);
+  color: var(--text-ivory);
   text-decoration: none;
   padding: 4px 2px;
   border-bottom: 1.5px solid transparent;
   transition: color 0.25s, border-color 0.25s;
 }
 .link:hover, .link.active {
-  color: #E8C96B;
-  border-color: #C9A84C;
+  color: var(--text-gold-strong);
+  border-color: var(--text-gold-strong);
 }
 
 /* ── Mobile: hide the header bar entirely ───────────────────────────────────*/
@@ -104,10 +104,10 @@
 .overlayLink {
   font-family: 'Cormorant Garamond', Georgia, serif;
   font-size: 22px;
-  font-weight: 400;
-  letter-spacing: 0.25em;
+  font-weight: 600;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: rgba(240,229,200,0.72);
+  color: var(--text-ivory);
   text-decoration: none;
   padding: 6px 0;
   border-bottom: 1px solid transparent;
@@ -115,7 +115,7 @@
 }
 .overlayLink.active,
 .overlayLink:hover {
-  color: #E8C96B;
+  color: var(--text-gold-strong);
   border-color: rgba(201,168,76,0.5);
 }
 

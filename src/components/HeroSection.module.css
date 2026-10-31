@@ -97,30 +97,32 @@
 /* ── Type ── */
 .eyebrow {
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: clamp(9px, 1.1vh, 12px);
-  font-weight: 400;
-  letter-spacing: 0.34em;
+  font-size: clamp(11px, 1.4vw, 14px);
+  font-weight: 600;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: rgba(201,168,76,0.88);
+  color: var(--text-gold-strong);
   margin-bottom: 0;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.55), 0 0 12px rgba(30,0,8,0.45);
 }
 .heading {
   font-family: 'Cormorant Garamond', Georgia, serif;
   font-size: clamp(16px, 3.2vh, 44px);
   font-weight: 300;
-  color: #FAF3E0;
+  color: #FFF6E5;
   line-height: 1.12;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   margin-bottom: 0;
   text-wrap: balance;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.55), 0 0 12px rgba(30,0,8,0.45);
 }
 .coupleNames {
   font-family: 'Great Vibes', cursive;
   font-size: clamp(26px, 7vh, 58px);
-  color: #E8C96B;
+  color: var(--text-script);
   line-height: 1.12;
-  text-shadow: 0 0 40px rgba(201,168,76,0.45), 0 4px 14px rgba(0,0,0,0.5);
+  text-shadow: 0 1px 3px rgba(0,0,0,0.6), 0 0 40px rgba(201,168,76,0.5), 0 4px 14px rgba(0,0,0,0.55);
   margin-bottom: 0;
 }
 .amp {
@@ -152,11 +154,13 @@
 /* ── Date ── */
 .weddingDate {
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: clamp(12px, 1.8vh, 18px);
+  font-size: clamp(15px, 2vh, 18px);
+  font-weight: 500;
   letter-spacing: 0.24em;
-  color: #F0E5C8;
+  color: var(--text-ivory);
   margin-bottom: 0;
   font-style: italic;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.55), 0 0 12px rgba(30,0,8,0.45);
 }
 
 /* ── Envelope wrapper ── */
@@ -172,13 +176,13 @@
   gap: 10px;
   padding: 13px 42px;
   border: 1.5px solid #C9A84C;
-  color: #E8C96B;
+  color: var(--text-gold-strong);
   background: transparent;
   text-decoration: none;
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: clamp(11px,1.4vw,14px);
-  font-weight: 500;
-  letter-spacing: 0.28em;
+  font-size: clamp(13px,1.4vw,14px);
+  font-weight: 600;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   transition: background 0.35s, box-shadow 0.35s, color 0.35s, border-color 0.35s;
   position: relative;
@@ -216,10 +220,10 @@
 }
 .scrollLabel {
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 10px;
-  letter-spacing: 0.3em;
+  font-size: 12px;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: rgba(201,168,76,0.6);
+  color: var(--text-gold);
 }
 .scrollChevron {
   width: 16px;

@@ -36,21 +36,24 @@
 .header { text-align: center; margin-bottom: clamp(10px, 2vh, 20px); }
 .eyebrow {
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: clamp(10px,1.2vw,13px);
-  letter-spacing: 0.32em;
+  font-size: clamp(11px, 1.4vw, 14px);
+  font-weight: 600;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: #C9A84C;
+  color: var(--text-gold-strong);
   margin-bottom: clamp(6px, 1vh, 10px);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.55), 0 0 12px rgba(30,0,8,0.45);
 }
 .title {
   font-family: 'Cormorant Garamond', Georgia, serif;
   font-size: clamp(1.6rem, min(4vw, 5.5vh), 3.2rem);
   font-weight: 300;
-  color: #FAF3E0;
+  color: #FFF6E5;
   line-height: 1.15;
   text-wrap: balance;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.55), 0 0 12px rgba(30,0,8,0.45);
 }
-.title em { font-style: italic; color: #E8C96B; }
+.title em { font-style: italic; color: var(--text-gold); }
 .rule {
   display: flex;
   align-items: center;
@@ -157,17 +160,19 @@
 .personName {
   font-family: 'Great Vibes', cursive;
   font-size: clamp(22px,2.8vw,34px);
-  color: #E8C96B;
+  color: var(--text-script);
   text-align: center;
-  text-shadow: 0 0 20px rgba(201,168,76,0.3);
+  text-shadow: 0 1px 3px rgba(0,0,0,0.6), 0 0 24px rgba(201,168,76,0.5);
 }
 .personRole {
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: clamp(10px,1.2vw,12px);
-  letter-spacing: 0.3em;
+  font-size: clamp(11px, 1.4vw, 14px);
+  font-weight: 600;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: #C9A84C;
+  color: var(--text-gold-strong);
   text-align: center;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.55), 0 0 12px rgba(30,0,8,0.45);
 }
 
 /* Amp centre */
@@ -194,21 +199,25 @@
 .verse { text-align: center; max-width: 560px; }
 .verseText {
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: clamp(13px,1.6vw,17px);
+  font-size: clamp(15px, 1.8vw, 17px);
+  font-weight: 500;
   font-style: italic;
-  color: #F0E5C8;
-  line-height: 1.8;
+  color: var(--text-ivory);
+  line-height: 1.55;
   letter-spacing: 0.02em;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.55), 0 0 12px rgba(30,0,8,0.45);
 }
 .verseCite {
   display: block;
   margin-top: 14px;
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 11px;
-  letter-spacing: 0.28em;
+  font-size: clamp(11px, 1.3vw, 13px);
+  font-weight: 600;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: #C9A84C;
+  color: var(--text-gold-strong);
   font-style: normal;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.55), 0 0 12px rgba(30,0,8,0.45);
 }
 
 /* ── Mobile ── */

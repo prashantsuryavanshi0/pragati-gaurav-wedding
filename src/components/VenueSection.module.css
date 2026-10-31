@@ -101,24 +101,26 @@
 /* ── Typography ── */
 .eyebrow {
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: clamp(10px,1.2vw,13px);
-  letter-spacing: 0.36em;
+  font-size: clamp(11px, 1.4vw, 14px);
+  font-weight: 600;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: rgba(201,168,76,0.8);
+  color: var(--text-gold-strong);
   margin-bottom: 12px;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.55), 0 0 12px rgba(30,0,8,0.45);
 }
 
 .heading {
   font-family: 'Cormorant Garamond', Georgia, serif;
   font-size: clamp(20px, 3.5vh, 40px);
   font-weight: 300;
-  color: #FAF3E0;
+  color: #FFF6E5;
   line-height: 1.1;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   margin-bottom: 0;
   text-wrap: balance;
-  text-shadow: 0 4px 24px rgba(0,0,0,0.55);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.55), 0 0 12px rgba(30,0,8,0.45), 0 4px 24px rgba(0,0,0,0.55);
 }
 
 /* ── Divider ── */
@@ -145,7 +147,7 @@
   width: 100%;
   max-width: 560px;
   /* Glass panel */
-  background: rgba(40, 8, 8, 0.60);
+  background: rgba(40, 8, 8, 0.90);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border: 1.5px solid rgba(201,168,76,0.38);
@@ -169,29 +171,33 @@
 .venueName {
   font-family: 'Great Vibes', cursive;
   font-size: clamp(26px, 4vh, 44px);
-  color: #E8C96B;
+  color: var(--text-script);
   line-height: 1.15;
   margin-bottom: 8px;
   font-weight: 400;
-  text-shadow: 0 0 32px rgba(201,168,76,0.35), 0 4px 14px rgba(0,0,0,0.5);
+  text-shadow: 0 1px 3px rgba(0,0,0,0.6), 0 0 32px rgba(201,168,76,0.5), 0 4px 14px rgba(0,0,0,0.55);
 }
 .inviteLine {
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: clamp(13px,1.6vw,17px);
+  font-size: clamp(15px, 1.8vw, 17px);
+  font-weight: 500;
   font-style: italic;
-  color: rgba(240,229,200,0.78);
-  line-height: 1.7;
+  color: var(--text-ivory);
+  line-height: 1.55;
   max-width: 440px;
   margin: 0 auto 8px;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.55), 0 0 12px rgba(30,0,8,0.45);
 }
 .venueDate {
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: clamp(11px,1.4vw,14px);
-  letter-spacing: 0.26em;
+  font-size: clamp(13px, 1.5vw, 15px);
+  font-weight: 600;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: rgba(201,168,76,0.72);
+  color: var(--text-gold-strong);
   margin-bottom: 12px;
   font-style: italic;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.55), 0 0 12px rgba(30,0,8,0.45);
 }
 
 /* ── Directions button ── */
@@ -201,12 +207,12 @@
   gap: 10px;
   padding: 13px 36px;
   background: linear-gradient(135deg, #C9A84C 0%, #A07830 100%);
-  color: #2D0808;
+  color: var(--text-on-gold);
   text-decoration: none;
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: clamp(11px,1.3vw,14px);
-  font-weight: 700;
-  letter-spacing: 0.24em;
+  font-size: clamp(13px, 1.4vw, 14px);
+  font-weight: 600;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   transition: background 0.35s, box-shadow 0.35s, transform 0.3s;
   box-shadow: 0 8px 24px rgba(201,168,76,0.25);
