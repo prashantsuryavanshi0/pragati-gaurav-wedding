@@ -1,7 +1,8 @@
+/* ── Music button — mobile: top-left (clear hamburger at top-right) ── */
 .btn {
   position: fixed;
-  bottom: calc(var(--mobile-bar-h, 64px) + 14px);
-  right: 16px;
+  top: calc(12px + env(safe-area-inset-top, 0px));
+  left: 14px;
   z-index: 200;
   width: 40px;
   height: 40px;
@@ -32,10 +33,51 @@
   outline: none;
 }
 
-/* On desktop (no mobile bar), anchor to bottom-right */
+/* Desktop: bottom-left, clear of centered prev-arrow */
 @media (min-width: 768px) {
   .btn {
-    bottom: 24px;
-    right: 24px;
+    top: auto;
+    bottom: 18px;
+    left: 18px;
   }
+}
+
+/* ── Pulsing border when hint is showing ── */
+.pulse {
+  animation: pulse-border 1.5s ease-in-out infinite;
+}
+@keyframes pulse-border {
+  0%, 100% { border-color: rgba(201, 168, 76, 0.55); }
+  50%       { border-color: rgba(201, 168, 76, 1); box-shadow: 0 0 10px rgba(201, 168, 76, 0.4); }
+}
+
+/* ── "Tap for music ♪" hint label ── */
+.hint {
+  position: fixed;
+  z-index: 200;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: #F2CF7E;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  pointer-events: none;
+  animation: fadeHint 0.5s ease-in;
+  /* Mobile: to the right of the top-left button */
+  top: calc(12px + env(safe-area-inset-top, 0px) + 11px);
+  left: 62px;
+}
+
+@media (min-width: 768px) {
+  /* Desktop: to the right of the bottom-left button */
+  .hint {
+    top: auto;
+    bottom: 25px;
+    left: 68px;
+  }
+}
+
+@keyframes fadeHint {
+  from { opacity: 0; transform: translateX(-4px); }
+  to   { opacity: 1; transform: translateX(0); }
 }
