@@ -2,6 +2,7 @@ import { memo } from 'react'
 import NavBar               from './components/NavBar'
 import FlipBookProvider     from './components/FlipBook/FlipBookProvider'
 import FlipBookShell        from './components/FlipBook/FlipBookShell'
+import MusicPlayer          from './components/MusicPlayer/MusicPlayer'
 import HeroSection          from './components/HeroSection'
 import CoupleSection        from './components/CoupleSection'
 import CelebrationsSection  from './components/CelebrationsSection'
@@ -22,6 +23,7 @@ export default function App() {
   return (
     <FlipBookProvider>
       <NavBar />
+      <MusicPlayer baseUrl={import.meta.env.BASE_URL} />
       <FlipBookShell pages={Pages} />
     </FlipBookProvider>
   )

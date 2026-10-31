@@ -24,34 +24,33 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  /* Enough opacity to see the video clearly, still lets text read */
-  opacity: 0.65;
-  color: transparent; /* hide broken-video icon */
+  opacity: 0.55;
+  color: transparent;
 }
 /* Translucent maroon tint over video */
 .overlay {
   position: absolute;
   inset: 0;
-  background: rgba(35, 5, 5, 0.42);
+  background: rgba(25, 3, 3, 0.55);
 }
 /* Cinematic edge vignette */
 .vignette {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse 110% 110% at 50% 50%, transparent 28%, rgba(8,1,1,0.78) 100%),
+    radial-gradient(ellipse 110% 110% at 50% 50%, transparent 22%, rgba(6,0,0,0.85) 100%),
     linear-gradient(to bottom,
-      rgba(20,4,4,0.55) 0%,
+      rgba(16,3,3,0.65) 0%,
       transparent 18%,
-      transparent 72%,
-      rgba(8,1,1,0.80) 100%);
+      transparent 68%,
+      rgba(6,0,0,0.88) 100%);
 }
 /* Warm golden centre glow */
 .centerGlow {
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse 55% 42% at 50% 48%,
-    rgba(201,168,76,0.12) 0%, transparent 72%);
+  background: radial-gradient(ellipse 60% 46% at 50% 48%,
+    rgba(201,168,76,0.09) 0%, transparent 70%);
   animation: glowBreath 5s ease-in-out infinite;
 }
 @keyframes glowBreath {
@@ -107,22 +106,22 @@
 }
 .heading {
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: clamp(16px, 3.2vh, 44px);
-  font-weight: 300;
-  color: #FFF6E5;
+  font-size: clamp(1rem, min(3.2vw, 3.6vh), 2.2rem);
+  font-weight: 600;
+  color: var(--text-gold-strong);
   line-height: 1.12;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   margin-bottom: 0;
   text-wrap: balance;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.55), 0 0 12px rgba(30,0,8,0.45);
+  text-shadow: 0 2px 6px rgba(0,0,0,0.75), 0 0 24px rgba(30,0,8,0.6);
 }
 .coupleNames {
   font-family: 'Great Vibes', cursive;
-  font-size: clamp(26px, 7vh, 58px);
+  font-size: clamp(2.6rem, min(9vw, 8.5vh), 6.2rem);
   color: var(--text-script);
   line-height: 1.12;
-  text-shadow: 0 1px 3px rgba(0,0,0,0.6), 0 0 40px rgba(201,168,76,0.5), 0 4px 14px rgba(0,0,0,0.55);
+  text-shadow: 0 2px 4px rgba(0,0,0,0.6), 0 0 18px rgba(242,207,126,0.25), 0 4px 14px rgba(0,0,0,0.55);
   margin-bottom: 0;
 }
 .amp {
@@ -155,12 +154,12 @@
 .weddingDate {
   font-family: 'Cormorant Garamond', Georgia, serif;
   font-size: clamp(15px, 2vh, 18px);
-  font-weight: 500;
-  letter-spacing: 0.24em;
-  color: var(--text-ivory);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--text-gold-strong);
   margin-bottom: 0;
   font-style: italic;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.55), 0 0 12px rgba(30,0,8,0.45);
+  text-shadow: 0 2px 6px rgba(0,0,0,0.75), 0 0 16px rgba(30,0,8,0.5);
 }
 
 /* ── Envelope wrapper ── */

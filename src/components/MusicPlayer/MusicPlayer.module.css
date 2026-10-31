@@ -1,0 +1,41 @@
+.btn {
+  position: fixed;
+  bottom: calc(var(--mobile-bar-h, 64px) + 14px);
+  right: 16px;
+  z-index: 200;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(201, 168, 76, 0.5);
+  background: rgba(20, 4, 4, 0.78);
+  color: var(--text-gold, #F2CF7E);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition: border-color 0.25s, box-shadow 0.25s, background 0.25s;
+}
+
+.btn svg {
+  width: 18px;
+  height: 18px;
+  pointer-events: none;
+}
+
+.btn:hover,
+.btn:focus-visible {
+  border-color: rgba(201, 168, 76, 0.9);
+  background: rgba(30, 6, 6, 0.9);
+  box-shadow: 0 0 16px rgba(201, 168, 76, 0.25);
+  outline: none;
+}
+
+/* On desktop (no mobile bar), anchor to bottom-right */
+@media (min-width: 768px) {
+  .btn {
+    bottom: 24px;
+    right: 24px;
+  }
+}
