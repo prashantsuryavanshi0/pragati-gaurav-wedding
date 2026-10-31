@@ -25,19 +25,10 @@
   width: 100%;
 }
 
-/* Swipe hint — only visible on mobile carousel */
-.swipeHint {
-  display: none;
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 11px;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: rgba(201,168,76,0.55);
-  text-align: center;
-  margin-bottom: 8px;
-}
+/* Swipe hint — hidden (was carousel hint) */
+.swipeHint { display: none; }
 
-/* Header */
+/* ── Header ── */
 .header { text-align: center; margin-bottom: clamp(16px, 3vh, 28px); }
 .eyebrow {
   font-family: 'Cormorant Garamond', Georgia, serif;
@@ -70,20 +61,23 @@
 }
 .rule span { color: #C9A84C; font-size: 13px; }
 
-/* Grid */
+/* ── Grid ── */
 .grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: clamp(16px,2.5vw,28px);
+  align-items: stretch;
 }
 
-/* Card */
+/* ── Card ── */
 .card {
   position: relative;
   border: 1px solid rgba(201,168,76,0.28);
   background: linear-gradient(160deg, rgba(61,12,12,0.9) 0%, rgba(20,5,5,0.96) 100%);
   overflow: hidden;
   transition: border-color 0.35s, box-shadow 0.35s;
+  display: flex;
+  flex-direction: column;
 }
 .card:hover {
   border-color: rgba(201,168,76,0.65);
@@ -106,7 +100,7 @@
 .cBL { bottom: 7px; left: 7px;  border-width: 0 0 1.5px 1.5px; }
 .cBR { bottom: 7px; right: 7px; border-width: 0 1.5px 1.5px 0; }
 
-/* Image */
+/* ── Image/color strip ── */
 .imgWrap {
   position: relative;
   height: clamp(70px, min(14vw, 14vh), 150px);
@@ -155,60 +149,7 @@
   border-color: transparent;
 }
 
-/* Responsive grid — desktop 4 col, tablet 2×2, phone carousel */
-@media (max-width: 900px) {
-  .grid { grid-template-columns: repeat(2, 1fr); }
-}
-
-/* Phone horizontal carousel */
-@media (max-width: 600px) {
-  .swipeHint { display: block; }
-
-  .grid {
-    /* Switch grid to flex carousel */
-    display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    gap: 14px;
-    padding-bottom: 12px; /* room for scrollbar on some browsers */
-    /* hide scrollbar cross-browser */
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-  }
-  .grid::-webkit-scrollbar { display: none; }
-
-  .grid > * {
-    flex: 0 0 82%;
-    scroll-snap-align: center;
-    min-width: 0;
-  }
-
-  .imgWrap { height: clamp(100px, 26vw, 160px); }
-}
-
-/* Short-screen compacting */
-@media (max-height: 760px) {
-  .section {
-    padding-top: calc(var(--nav-h, 52px) + 10px);
-    padding-bottom: 16px;
-  }
-  .header { margin-bottom: 14px; }
-  .imgWrap { height: clamp(60px, 11vh, 120px); }
-  .body { padding: 10px 12px 14px; }
-  .eventName { font-size: clamp(17px, 2.2vh, 24px); margin-bottom: 8px; }
-}
-@media (max-height: 640px) {
-  .section {
-    padding-top: calc(var(--nav-h, 52px) + 6px);
-    padding-bottom: 10px;
-  }
-  .imgWrap { height: clamp(55px, 9vh, 100px); }
-  .header { margin-bottom: 10px; }
-  .title { font-size: clamp(22px, 3.5vh, 36px); }
-}
-
-/* Body */
+/* ── Card body ── */
 .body { padding: 14px 16px 18px; }
 .eventName {
   font-family: 'Great Vibes', cursive;
@@ -242,7 +183,134 @@
   line-height: 1.6;
 }
 
-/* ── Mobile: add bottom padding for the mobile bar ── */
+/* ── Responsive grid — desktop 4 col, tablet 2×2 ── */
+@media (max-width: 900px) and (min-width: 600px) {
+  .grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ── Short-screen compacting (desktop/tablet only, guarded by min-width) ── */
+@media (max-height: 760px) and (min-width: 600px) {
+  .section {
+    padding-top: calc(var(--nav-h, 52px) + 10px);
+    padding-bottom: 16px;
+  }
+  .header { margin-bottom: 14px; }
+  .imgWrap { height: clamp(60px, 11vh, 120px); }
+  .body { padding: 10px 12px 14px; }
+  .eventName { font-size: clamp(17px, 2.2vh, 24px); margin-bottom: 8px; }
+}
+@media (max-height: 640px) and (min-width: 600px) {
+  .section {
+    padding-top: calc(var(--nav-h, 52px) + 6px);
+    padding-bottom: 10px;
+  }
+  .imgWrap { height: clamp(55px, 9vh, 100px); }
+  .header { margin-bottom: 10px; }
+  .title { font-size: clamp(22px, 3.5vh, 36px); }
+}
+
+/* ── Mobile bar padding (phones + tablets) ── */
 @media (max-width: 767px) {
   .section { padding-bottom: var(--mobile-bar-h, 64px); }
+}
+
+/* ── Phone (<600px): vertical stack, compact cards ──
+   This block MUST come last so it overrides all rules above. ── */
+@media (max-width: 599px) {
+  .section {
+    padding-top: calc(var(--nav-h, 0px) + 12px);
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: var(--mobile-bar-h, 64px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .inner { padding: 0; }
+
+  .header {
+    padding: 0 14px;
+    margin-bottom: 10px;
+  }
+  .header .eyebrow { font-size: 9px; margin-bottom: 6px; }
+  .header .title { font-size: clamp(22px, 7vw, 28px); }
+  .header .rule { margin-top: 10px; }
+
+  .grid {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 0 14px;
+  }
+
+  /* ── Compact card ── */
+  .card { flex-direction: column; }
+
+  /* Thin strip: icon + badge on one row, ~36px tall */
+  .imgWrap {
+    height: 36px;
+    overflow: visible;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0 10px;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+  .imgPlaceholder {
+    flex-direction: row;
+    width: auto;
+    height: auto;
+    gap: 5px;
+    flex: 1;
+    justify-content: flex-start;
+  }
+  .phIcon { font-size: 16px; opacity: 0.75; }
+  .phLabel { display: none; }
+  .imgOverlay { display: none; }
+  .card:hover .imgPlaceholder { transform: none; }
+
+  /* Badge sits inline in strip (not absolute) */
+  .badge {
+    position: static;
+    font-size: 7.5px;
+    padding: 2px 6px;
+    letter-spacing: 0.15em;
+    flex-shrink: 0;
+  }
+
+  /* Corner ornaments: shrink to fit compact card */
+  .corner { width: 14px; height: 14px; }
+  .cTL { top: 4px; left: 4px; }
+  .cTR { top: 4px; right: 4px; }
+  .cBL { bottom: 4px; left: 4px; }
+  .cBR { bottom: 4px; right: 4px; }
+
+  /* Body: 2-column — name left, details right */
+  .body {
+    padding: 6px 10px 7px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 10px;
+    align-items: center;
+  }
+  .eventName {
+    grid-column: 1;
+    font-size: 1.35rem;
+    margin-bottom: 0;
+    line-height: 1.1;
+    white-space: nowrap;
+  }
+  .details {
+    grid-column: 2;
+    gap: 1px;
+    margin-bottom: 0;
+  }
+  .details li {
+    font-size: 0.72rem;
+    gap: 4px;
+    line-height: 1.4;
+  }
+  .dIcon { font-size: 10px; }
+  .desc { display: none; }
 }

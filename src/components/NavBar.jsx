@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { useFlipBook, PAGE_IDS } from './FlipBook/FlipBook'
+import { useFlipBook, PAGE_IDS } from './FlipBook/FlipBookContext'
 import styles from './NavBar.module.css'
 
 const LINKS = [

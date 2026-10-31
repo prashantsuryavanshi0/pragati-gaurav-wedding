@@ -3,7 +3,7 @@ import { motion, useReducedMotion } from 'framer-motion'
 import GoldParticles from './GoldParticles'
 import RosePetals from './RosePetals'
 import Envelope from './Envelope'
-import { useFlipBook } from './FlipBook/FlipBook'
+import { useFlipBook } from './FlipBook/FlipBookContext'
 import styles from './HeroSection.module.css'
 
 const stagger = {

@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect, useRef, createContext, useContext } from 'react'
+import { useState, useCallback, useEffect, useRef } from 'react'
 import {
   motion,
   useReducedMotion,
@@ -17,14 +17,11 @@ import {
   RIFFLE_DURATION, RIFFLE_STAGGER, RIFFLE_EASE, RIFFLE_TILT_Z,
 } from './flipConfig.js'
 import useAutoFlip from './useAutoFlip.js'
-
-// ── Context ──────────────────────────────────────────────────────────────────
-export const FlipBookContext = createContext({ currentPage: 0, goTo: () => {}, startRiffle: () => {} })
-export const useFlipBook = () => useContext(FlipBookContext)
-export const PAGE_IDS = ['hero', 'couple', 'celebrations', 'bigday', 'venue', 'blessings']
+import { PAGE_IDS } from './FlipBookContext.js'
+export { useFlipBook, PAGE_IDS } from './FlipBookContext.js'
 
 // ── FlipBook ──────────────────────────────────────────────────────────────────
-export default function FlipBook({ pages }) {
+export default function FlipBook({ pages, onCurChange, registerGoTo, registerStartRiffle }) {
   // useReducedMotion is used ONLY for purely decorative elements (corner hint).
   // The 3-D flip runs unconditionally — Windows "animation effects off" must not skip it.
   const prefersReducedDecor = useReducedMotion()
@@ -57,6 +54,9 @@ export default function FlipBook({ pages }) {
   useEffect(() => { curRef.current    = cur },        [cur])
   useEffect(() => { isFlipRef.current = isFlipping }, [isFlipping])
   useEffect(() => { isRiffRef.current = isRiffling }, [isRiffling])
+
+  // Sync current page up to shell/context
+  useEffect(() => { onCurChange?.(cur) }, [cur, onCurChange])
 
   const turningIdx = flip ? (flip.dir === 'fwd' ? flip.from : flip.to)   : -1
   const underIdx   = flip ? (flip.dir === 'fwd' ? flip.to   : flip.from) : -1
@@ -125,6 +125,10 @@ export default function FlipBook({ pages }) {
     setIsRiffling(false)
     setState({ cur: 0, flip: null })
   }
+
+  // Register imperative handles for FlipBookShell
+  useEffect(() => { registerGoTo?.(goTo) },               [goTo, registerGoTo])             // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => { registerStartRiffle?.(startRiffle) }, [startRiffle, registerStartRiffle]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // ── Auto-flip ─────────────────────────────────────────────────────────────
   const { isPaused, manualPaused, onInteraction, togglePause } = useAutoFlip({
@@ -274,7 +278,7 @@ export default function FlipBook({ pages }) {
       const dx = t.clientX - touchStart.current.x
       const dy = t.clientY - touchStart.current.y
       touchStart.current = null
-      if (Math.abs(dx) < 50 || Math.abs(dx) < Math.abs(dy)) return
+      if (Math.abs(dx) < 50 || Math.abs(dx) < 1.5 * Math.abs(dy)) return
       if (dx < 0) next(); else prev()
     }
     window.addEventListener('touchstart', onTouchStart, { passive: true })
@@ -287,7 +291,6 @@ export default function FlipBook({ pages }) {
 
   // ── Render ────────────────────────────────────────────────────────────────
   return (
-    <FlipBookContext.Provider value={{ currentPage: cur, goTo, startRiffle }}>
       <div
         ref={bookRef}
         className={styles.book}
@@ -465,6 +468,5 @@ export default function FlipBook({ pages }) {
           <motion.div className={styles.progressBar} style={{ scaleX: progressBar }} aria-hidden="true" />
         )}
       </div>
-    </FlipBookContext.Provider>
   )
 }

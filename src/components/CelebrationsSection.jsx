@@ -127,7 +127,7 @@ export default function CelebrationsSection() {
 
         <p className={styles.swipeHint} aria-hidden="true">Swipe to explore →</p>
 
-        <div className={styles.grid} data-no-swipe="true">
+        <div className={styles.grid}>
           {EVENTS.map((ev, i) => (
             <EventCard key={ev.key} event={ev} index={i} />
           ))}
