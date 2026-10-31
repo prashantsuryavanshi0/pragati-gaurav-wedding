@@ -3,9 +3,10 @@ import { motion, useInView } from 'framer-motion'
 import SectionVideoBg from './SectionVideoBg'
 import styles from './CoupleSection.module.css'
 
+const BASE = import.meta.env.BASE_URL
 const PHOTOS = {
-  Pragati: { src: '/assets/bride-portrait.webp', alt: 'Pragati – The Bride' },
-  Gaurav:  { src: '/assets/groom-portrait.webp', alt: 'Gaurav – The Groom' },
+  Pragati: { src: `${BASE}assets/bride-portrait.webp`, alt: 'Pragati – The Bride' },
+  Gaurav:  { src: `${BASE}assets/groom-portrait.webp`, alt: 'Gaurav – The Groom' },
 }
 
 function Portrait({ name, role, delay }) {
@@ -31,6 +32,7 @@ function Portrait({ name, role, delay }) {
             decoding="async"
             width="600"
             height="800"
+            onError={e => { e.currentTarget.style.display = 'none' }}
           />
           {/* Gold inner glow overlay */}
           <div className={styles.photoGlow} aria-hidden="true" />
