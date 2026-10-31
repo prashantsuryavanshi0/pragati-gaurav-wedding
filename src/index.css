@@ -1,0 +1,80 @@
+/* ─── WEDDING TOKENS ─── */
+:root {
+  --maroon:       #6B1A1A;
+  --maroon-deep:  #3D0C0C;
+  --maroon-mid:   #8B2020;
+  --gold:         #C9A84C;
+  --gold-light:   #E8C96B;
+  --gold-pale:    #F5E6B8;
+  --ivory:        #FAF3E0;
+  --ivory-dark:   #F0E5C8;
+  --text-dark:    #1A0808;
+  --overlay:      rgba(26, 6, 6, 0.72);
+
+  --ff-display: 'Cormorant Garamond', Georgia, serif;
+  --ff-script:  'Great Vibes', cursive;
+  --ff-body:    'EB Garamond', Georgia, serif;
+
+  /* Fixed nav height — used for scroll-margin-top on all sections */
+  --header-height: 52px;
+  --nav-h: 52px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: clip;
+}
+
+body {
+  background: var(--maroon-deep);
+  color: var(--ivory);
+  font-family: var(--ff-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip;
+}
+
+/* Reduce nav height on short screens to reclaim vertical space */
+@media (max-height: 760px) {
+  :root {
+    --nav-h: 44px;
+    --header-height: 44px;
+  }
+}
+@media (max-height: 640px) {
+  :root {
+    --nav-h: 40px;
+    --header-height: 40px;
+  }
+}
+
+#root {
+  width: 100%;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.15s !important;
+  }
+}

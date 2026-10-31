@@ -1,0 +1,48 @@
+/* ── Shared wrapper — one portrait video behind Couple + Celebrations ── */
+
+.wrapper {
+  position: relative;
+  /* Grows to the combined height of both child sections naturally */
+  /* Fallback maroon if video fails to load */
+  background: linear-gradient(175deg, #2D0A0A 0%, #1A0505 50%, #200808 100%);
+}
+
+/* Portrait video — object-fit:contain so the full frame is visible,
+   no cropping of embedded text or design elements.
+   The wrapper background fills side bars on wide screens.           */
+.video {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .video { display: none; }
+}
+
+/* Readability overlay across both sections */
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(18, 4, 4, 0.52);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/*
+  IMPORTANT: use "> section" not "> *"
+  If "> *" were used it would match the <video> and <div.overlay> too,
+  overriding their "position: absolute" with "position: relative" and
+  dropping them into normal flow — that's what caused the giant blank
+  space in previous attempts.
+*/
+.wrapper > section {
+  position: relative;
+  z-index: 2;
+}

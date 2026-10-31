@@ -1,0 +1,91 @@
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 14px clamp(16px,3vw,40px);
+  background: linear-gradient(to bottom, rgba(22,5,5,0.92) 0%, transparent 100%);
+  transition: background 0.4s, box-shadow 0.4s;
+}
+.solid {
+  background: rgba(22,5,5,0.97);
+  box-shadow: 0 1px 0 rgba(201,168,76,0.2);
+}
+
+/* Desktop */
+.links {
+  display: flex;
+  gap: clamp(14px,2.5vw,36px);
+}
+.link {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(10px,1.2vw,13px);
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(240,229,200,0.72);
+  text-decoration: none;
+  padding: 4px 2px;
+  border-bottom: 1.5px solid transparent;
+  transition: color 0.25s, border-color 0.25s;
+}
+.link:hover, .link.active {
+  color: #E8C96B;
+  border-color: #C9A84C;
+}
+
+/* Mobile burger */
+.burger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  background: transparent;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+}
+.bar {
+  display: block;
+  width: 24px;
+  height: 1.5px;
+  background: #C9A84C;
+  transition: transform 0.3s, opacity 0.3s;
+}
+.barOpen1 { transform: translateY(6.5px) rotate(45deg); }
+.barOpen2 { opacity: 0; }
+.barOpen3 { transform: translateY(-6.5px) rotate(-45deg); }
+
+/* Mobile drawer */
+.drawer {
+  position: absolute;
+  top: 100%;
+  left: 0; right: 0;
+  background: rgba(22,5,5,0.98);
+  border-top: 1px solid rgba(201,168,76,0.2);
+  display: flex;
+  flex-direction: column;
+  padding: 16px 24px 20px;
+  gap: 14px;
+}
+.drawerLink {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 15px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(240,229,200,0.72);
+  text-decoration: none;
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(201,168,76,0.12);
+  transition: color 0.25s;
+}
+.drawerLink.active, .drawerLink:hover { color: #E8C96B; }
+
+@media (max-width: 640px) {
+  .links  { display: none; }
+  .burger { display: flex; }
+}

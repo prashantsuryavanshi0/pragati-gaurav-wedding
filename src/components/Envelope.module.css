@@ -1,0 +1,342 @@
+/* ─────────────────────────────────────────────────────────────
+   OUTER WRAPPER
+   Sits in normal document flow — NO fixed/absolute positioning.
+   Its size matches whichever child (envelope or card) is showing.
+───────────────────────────────────────────────────────────── */
+.wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  /* Let height grow naturally for the card */
+  overflow: visible;
+}
+
+/* ── Envelope scene (fixed size) ── */
+.scene {
+  position: relative;
+  width: clamp(280px, 40vw, 440px);
+  height: clamp(190px, 28vw, 300px);
+  user-select: none;
+  -webkit-user-select: none;
+  flex-shrink: 0;
+}
+.wrapperCompact .scene {
+  width: min(86vw, 380px);
+  height: clamp(140px, 27vh, 240px);
+}
+
+/* ── Envelope body ── */
+.envBody {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg, #7A1A1A 0%, #4A0C0C 45%, #380808 100%);
+  border-radius: 2px;
+  overflow: hidden;
+  box-shadow:
+    0 20px 56px rgba(0,0,0,0.65),
+    0 4px 16px rgba(0,0,0,0.40),
+    0 0 0 1px rgba(201,168,76,0.22) inset;
+}
+
+/* ── Flap fold lines ── */
+.flapTop {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 50%;
+  background: linear-gradient(175deg, rgba(255,255,255,0.04) 0%, transparent 65%);
+  clip-path: polygon(0 0, 100% 0, 50% 88%);
+  border-bottom: 0.5px solid rgba(201,168,76,0.20);
+}
+.flapBotL {
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 50%; height: 50%;
+  background: linear-gradient(to top right, rgba(0,0,0,0.12) 0%, transparent 55%);
+  clip-path: polygon(0 100%, 100% 100%, 0 0);
+}
+.flapBotR {
+  position: absolute;
+  bottom: 0; right: 0;
+  width: 50%; height: 50%;
+  background: linear-gradient(to top left, rgba(0,0,0,0.12) 0%, transparent 55%);
+  clip-path: polygon(100% 100%, 0 100%, 100% 0);
+}
+
+/* ── Gold ornamental borders ── */
+.outerBorder {
+  position: absolute; inset: 7px;
+  border: 1.5px solid rgba(201,168,76,0.55);
+  pointer-events: none;
+}
+.innerBorder {
+  position: absolute; inset: 13px;
+  border: 0.75px solid rgba(201,168,76,0.25);
+  pointer-events: none;
+}
+
+/* ── Corner ornaments ── */
+.corner {
+  position: absolute;
+  width: 22px; height: 22px;
+  pointer-events: none;
+}
+.corner::before,
+.corner::after {
+  content: '';
+  position: absolute;
+  background: rgba(201,168,76,0.75);
+}
+.corner::before { width: 100%; height: 1.5px; top: 0; left: 0; }
+.corner::after  { width: 1.5px; height: 100%; top: 0; left: 0; }
+.cTL { top: 7px;    left: 7px;    transform: none; }
+.cTR { top: 7px;    right: 7px;   transform: scaleX(-1); }
+.cBL { bottom: 7px; left: 7px;    transform: scaleY(-1); }
+.cBR { bottom: 7px; right: 7px;   transform: scale(-1,-1); }
+
+/* ── Wax seal ── */
+.seal {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: clamp(52px, 7.5vw, 80px);
+  height: clamp(52px, 7.5vw, 80px);
+  border-radius: 50%;
+  background: radial-gradient(circle at 38% 36%, #E8C96B 0%, #C9A84C 40%, #A07830 100%);
+  box-shadow:
+    0 4px 16px rgba(0,0,0,0.5),
+    0 0 0 2px rgba(201,168,76,0.4),
+    0 0 24px rgba(201,168,76,0.22);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.seal svg { width: 85%; height: 85%; }
+
+/* ── Scratch canvas — fills the scene ── */
+.scratchCanvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+  outline: none;
+  border-radius: 2px;
+}
+.scratchCanvas:focus-visible {
+  outline: 2px solid rgba(201,168,76,0.6);
+  outline-offset: 3px;
+}
+
+/* ── Hint text below envelope ── */
+.hint {
+  position: absolute;
+  bottom: -30px;
+  left: 0; right: 0;
+  text-align: center;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(10px, 1.1vw, 12px);
+  letter-spacing: 0.18em;
+  color: rgba(201,168,76,0.55);
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+/* Accessible "Reveal invitation" fallback button */
+.revealBtn {
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: inherit;
+  font-size: inherit;
+  letter-spacing: inherit;
+  color: rgba(201,168,76,0.75);
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-color: rgba(201,168,76,0.35);
+  pointer-events: all;
+}
+.revealBtn:hover { color: #E8C96B; }
+.revealBtn:focus-visible { outline: 1px solid rgba(201,168,76,0.6); outline-offset: 2px; }
+
+/* ─────────────────────────────────────────────────────────────
+   INVITATION CARD
+   Replaces the envelope in the same wrapper — NO fixed/modal.
+   Width matches compact or default; height is auto (content-driven).
+───────────────────────────────────────────────────────────── */
+.invitationCard {
+  position: relative;                    /* in normal flow */
+  width: min(90vw, 440px);
+  background: linear-gradient(160deg, #FAF3E0 0%, #F0E5C8 50%, #EDD9B0 100%);
+  padding: clamp(32px, 4.5vw, 52px) clamp(24px, 3.5vw, 44px) clamp(28px, 4vw, 44px);
+  text-align: center;
+  box-shadow:
+    0 24px 60px rgba(0,0,0,0.55),
+    0 0 0 1px rgba(201,168,76,0.28);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  overflow: visible;
+}
+.wrapperCompact .invitationCard {
+  width: min(90vw, 380px);
+}
+
+/* ── Card ornamental border ── */
+.cardBorder {
+  position: absolute; inset: 10px;
+  border: 1px solid rgba(107,26,26,0.28);
+  pointer-events: none;
+}
+.cardBorder::before {
+  content: '';
+  position: absolute; inset: 5px;
+  border: 0.5px solid rgba(107,26,26,0.13);
+}
+
+/* ── Card corner ornaments ── */
+.cardCorner {
+  position: absolute;
+  width: 24px; height: 24px;
+  pointer-events: none;
+}
+.cardCorner::before,
+.cardCorner::after {
+  content: '';
+  position: absolute;
+  background: rgba(107,26,26,0.50);
+}
+.cardCorner::before { width: 100%; height: 1.5px; top: 0; left: 0; }
+.cardCorner::after  { width: 1.5px; height: 100%; top: 0; left: 0; }
+.ccTL { top: 10px;    left: 10px;    transform: none; }
+.ccTR { top: 10px;    right: 10px;   transform: scaleX(-1); }
+.ccBL { bottom: 10px; left: 10px;    transform: scaleY(-1); }
+.ccBR { bottom: 10px; right: 10px;   transform: scale(-1,-1); }
+
+/* ── Close button — top-right of card ── */
+.closeBtn {
+  position: absolute;
+  top: 12px; right: 12px;
+  width: 28px; height: 28px;
+  border: 1px solid rgba(107,26,26,0.30);
+  background: transparent;
+  color: rgba(107,26,26,0.60);
+  font-size: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1px;
+  transition: background 0.2s, color 0.2s;
+  z-index: 1;
+}
+.closeBtn:hover { background: rgba(107,26,26,0.09); color: #6B1A1A; }
+.closeBtn:focus-visible { outline: 2px solid rgba(107,26,26,0.40); outline-offset: 2px; }
+
+/* ── Card floral ── */
+.cardFloral {
+  font-size: clamp(11px, 1.4vw, 14px);
+  letter-spacing: 0.28em;
+  color: rgba(107,26,26,0.50);
+  margin: 6px 0;
+}
+
+/* ── Card content ── */
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.cEyebrow {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(9px, 1.1vw, 11px);
+  letter-spacing: 0.36em;
+  text-transform: uppercase;
+  color: rgba(107,26,26,0.60);
+  margin: 4px 0 10px;
+}
+
+.cRule {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  max-width: 280px;
+  margin: 6px auto;
+}
+.cRule::before, .cRule::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(107,26,26,0.28), transparent);
+}
+.cRule span { color: rgba(107,26,26,0.45); font-size: 11px; flex-shrink: 0; }
+
+.cLine {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(13px, 1.7vw, 16px);
+  font-style: italic;
+  font-weight: 300;
+  color: #6B1A1A;
+  letter-spacing: 0.04em;
+  margin: 4px 0 2px;
+}
+
+.cLine2 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(11px, 1.3vw, 13px);
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  color: rgba(107,26,26,0.60);
+  margin: 0 0 10px;
+}
+
+.cNames {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(38px, 6.5vw, 64px);
+  color: #6B1A1A;
+  line-height: 1.1;
+  margin: 2px 0 10px;
+  text-shadow: 0 2px 10px rgba(107,26,26,0.13);
+}
+
+.cDate {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(15px, 2vw, 20px);
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  color: #6B1A1A;
+  margin: 8px 0 3px;
+}
+
+.cVenue {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(10px, 1.2vw, 12px);
+  letter-spacing: 0.30em;
+  text-transform: uppercase;
+  color: rgba(107,26,26,0.60);
+  margin: 0 0 12px;
+}
+
+.cSentiment {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(12px, 1.3vw, 14px);
+  font-style: italic;
+  color: rgba(107,26,26,0.55);
+  line-height: 1.75;
+  max-width: 320px;
+  text-wrap: balance;
+  margin: 2px 0 0;
+}
+
+/* ── Mobile ── */
+@media (max-width: 480px) {
+  .invitationCard { padding: 28px 18px 24px; }
+}

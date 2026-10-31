@@ -1,0 +1,241 @@
+/* ── Hero ── */
+.hero {
+  position: relative;
+  scroll-margin-top: var(--header-height);
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: safe center;
+  overflow: hidden;
+  /* Fallback shown when video hasn't loaded yet */
+  background:
+    radial-gradient(ellipse 80% 55% at 50% 0%, rgba(139,32,32,0.6) 0%, transparent 68%),
+    linear-gradient(165deg, #4A1010 0%, #220808 55%, #0A0202 100%);
+}
+
+/* ── Video layers ── */
+.videoBg {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+.video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Enough opacity to see the video clearly, still lets text read */
+  opacity: 0.65;
+  color: transparent; /* hide broken-video icon */
+}
+/* Translucent maroon tint over video */
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(35, 5, 5, 0.42);
+}
+/* Cinematic edge vignette */
+.vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 110% 110% at 50% 50%, transparent 28%, rgba(8,1,1,0.78) 100%),
+    linear-gradient(to bottom,
+      rgba(20,4,4,0.55) 0%,
+      transparent 18%,
+      transparent 72%,
+      rgba(8,1,1,0.80) 100%);
+}
+/* Warm golden centre glow */
+.centerGlow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 55% 42% at 50% 48%,
+    rgba(201,168,76,0.12) 0%, transparent 72%);
+  animation: glowBreath 5s ease-in-out infinite;
+}
+@keyframes glowBreath {
+  0%, 100% { opacity: 0.7; }
+  50%       { opacity: 1.0; }
+}
+
+/* ── Content ── */
+.content {
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  /* top: always clears fixed nav; bottom: leaves room for scroll indicator */
+  padding: calc(var(--nav-h, 52px) + clamp(8px, 2vh, 20px))
+           clamp(16px, 4vw, 48px)
+           clamp(72px, 11vh, 100px);
+}
+.contentInner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 760px;
+  width: 100%;
+  text-align: center;
+  gap: clamp(4px, 0.9vh, 12px);
+}
+
+/* ── Gold emblem ── */
+.emblem {
+  width: clamp(36px, 5vh, 62px);
+  height: clamp(36px, 5vh, 62px);
+  margin-bottom: 0;
+  filter: drop-shadow(0 0 16px rgba(201,168,76,0.5));
+  animation: emblemRotate 36s linear infinite;
+}
+@keyframes emblemRotate {
+  to { transform: rotate(360deg); }
+}
+@media (prefers-reduced-motion: reduce) { .emblem { animation: none; } }
+
+/* ── Type ── */
+.eyebrow {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(9px, 1.1vh, 12px);
+  font-weight: 400;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: rgba(201,168,76,0.88);
+  margin-bottom: 0;
+}
+.heading {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(16px, 3.2vh, 44px);
+  font-weight: 300;
+  color: #FAF3E0;
+  line-height: 1.12;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 0;
+  text-wrap: balance;
+}
+.coupleNames {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(26px, 7vh, 58px);
+  color: #E8C96B;
+  line-height: 1.12;
+  text-shadow: 0 0 40px rgba(201,168,76,0.45), 0 4px 14px rgba(0,0,0,0.5);
+  margin-bottom: 0;
+}
+.amp {
+  color: #C9A84C;
+  font-size: 0.72em;
+}
+
+/* ── Rule ── */
+.rule {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  max-width: 340px;
+  margin: 0 auto;
+}
+.rule::before, .rule::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(201,168,76,0.65), transparent);
+}
+.ruleOrnament {
+  color: #C9A84C;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+/* ── Date ── */
+.weddingDate {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(12px, 1.8vh, 18px);
+  letter-spacing: 0.24em;
+  color: #F0E5C8;
+  margin-bottom: 0;
+  font-style: italic;
+}
+
+/* ── Envelope wrapper ── */
+/* Bottom margin must clear the hint text that hangs -30px below the scene */
+.envelopeWrap {
+  margin-bottom: clamp(32px, 4.5vh, 48px);
+}
+
+/* ── CTA ── */
+.ctaBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 42px;
+  border: 1.5px solid #C9A84C;
+  color: #E8C96B;
+  background: transparent;
+  text-decoration: none;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(11px,1.4vw,14px);
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  transition: background 0.35s, box-shadow 0.35s, color 0.35s, border-color 0.35s;
+  position: relative;
+  overflow: hidden;
+}
+.ctaBtn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(201,168,76,0.16) 0%, rgba(201,168,76,0.04) 100%);
+  transform: translateX(-101%);
+  transition: transform 0.45s ease;
+}
+.ctaBtn:hover::before, .ctaBtn:focus-visible::before { transform: translateX(0); }
+.ctaBtn:hover, .ctaBtn:focus-visible {
+  border-color: #E8C96B;
+  color: #fff;
+  box-shadow: 0 0 28px rgba(201,168,76,0.3);
+  outline: none;
+}
+.ctaArrow { font-size: 15px; transition: transform 0.3s; }
+.ctaBtn:hover .ctaArrow { transform: translateY(3px); }
+
+/* ── Scroll indicator ── */
+.scrollIndicator {
+  position: absolute;
+  bottom: clamp(20px,3.5vh,36px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+}
+.scrollLabel {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(201,168,76,0.6);
+}
+.scrollChevron {
+  width: 16px;
+  height: 16px;
+  border-right: 1.5px solid rgba(201,168,76,0.6);
+  border-bottom: 1.5px solid rgba(201,168,76,0.6);
+  transform: rotate(45deg);
+  animation: bounce 1.7s ease-in-out infinite;
+}
+@keyframes bounce {
+  0%,100% { transform: rotate(45deg) translateY(0); }
+  50%      { transform: rotate(45deg) translateY(5px); }
+}
+@media (prefers-reduced-motion: reduce) { .scrollChevron { animation: none; } }
+
+@media (max-width: 480px) {
+  .content { padding: calc(var(--nav-h, 52px) + 12px) 16px clamp(72px, 11vh, 100px); }
+  .ctaBtn  { padding: 11px 24px; }
+}
